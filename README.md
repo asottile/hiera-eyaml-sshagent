@@ -79,5 +79,5 @@ passwords or copying around more keys (since I'm already using my ssh key).
 [ssh-agent-python]: https://github.com/asottile/ssh-agent-python
 [se-is-it-safe]: https://crypto.stackexchange.com/q/19631/65568
 [se-ssh-agent]: https://security.stackexchange.com/q/55757/197558
-[ssh-crypt]: https://github.com/leighmcculloch/sshcrypt
+[sshcrypt]: https://github.com/leighmcculloch/sshcrypt
 [personal-puppet]: https://github.com/asottile/personal-puppet
