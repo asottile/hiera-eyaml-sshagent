@@ -1,3 +1,5 @@
+[![Build Status](https://www.travis-ci.org/asottile/hiera-eyaml-sshagent.svg?branch=master)](https://www.travis-ci.org/asottile/hiera-eyaml-sshagent)
+
 hiera-eyaml-sshagent
 ====================
 
