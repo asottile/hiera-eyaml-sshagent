@@ -1,4 +1,4 @@
-[![Build Status](https://www.travis-ci.org/asottile/hiera-eyaml-sshagent.svg?branch=master)](https://www.travis-ci.org/asottile/hiera-eyaml-sshagent)
+[![Build Status](https://asottile.visualstudio.com/asottile/_apis/build/status/asottile.hiera-eyaml-sshagent?branchName=master)](https://asottile.visualstudio.com/asottile/_build/latest?definitionId=6&branchName=master)
 
 hiera-eyaml-sshagent
 ====================
