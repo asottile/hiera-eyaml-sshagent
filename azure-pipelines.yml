@@ -4,7 +4,7 @@ resources:
       type: github
       endpoint: asottile-github
       name: asottile/azure-pipeline-templates
-      ref: refs/heads/pre-commit
+      ref: refs/tags/v0.0.2
 
 jobs:
 - template: job--pre-commit.yml@asottile
