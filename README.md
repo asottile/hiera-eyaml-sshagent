@@ -1,4 +1,4 @@
-[![Build Status](https://asottile.visualstudio.com/asottile/_apis/build/status/asottile.hiera-eyaml-sshagent?branchName=master)](https://asottile.visualstudio.com/asottile/_build/latest?definitionId=6&branchName=master)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/asottile/hiera-eyaml-sshagent/master.svg)](https://results.pre-commit.ci/latest/github/asottile/hiera-eyaml-sshagent/master)
 
 hiera-eyaml-sshagent
 ====================
