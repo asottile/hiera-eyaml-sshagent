@@ -1,4 +1,4 @@
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/asottile/hiera-eyaml-sshagent/master.svg)](https://results.pre-commit.ci/latest/github/asottile/hiera-eyaml-sshagent/master)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/asottile/hiera-eyaml-sshagent/main.svg)](https://results.pre-commit.ci/latest/github/asottile/hiera-eyaml-sshagent/main)
 
 hiera-eyaml-sshagent
 ====================
