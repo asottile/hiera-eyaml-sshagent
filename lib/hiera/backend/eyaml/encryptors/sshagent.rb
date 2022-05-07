@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'base64'
 require 'json'
 require 'socket'
@@ -12,13 +14,13 @@ class Hiera
         class SSHAgent < Encryptor
           self.tag = 'SSHAGENT'
 
-          SSH2_AGENTC_REQUEST_IDENTITIES = "\x0b".freeze
-          SSH2_AGENT_IDENTITIES_ANSWER = "\x0c".freeze
-          SSH2_AGENTC_SIGN_REQUEST = "\x0d".freeze
-          SSH2_AGENT_SIGN_RESPONSE = "\x0e".freeze
+          SSH2_AGENTC_REQUEST_IDENTITIES = "\x0b"
+          SSH2_AGENT_IDENTITIES_ANSWER = "\x0c"
+          SSH2_AGENTC_SIGN_REQUEST = "\x0d"
+          SSH2_AGENT_SIGN_RESPONSE = "\x0e"
 
           def self.read_u32(sock)
-            sock.read(4).unpack('L>')[0]
+            sock.read(4).unpack1('L>')
           end
 
           def self.read_s(sock)
@@ -39,9 +41,7 @@ class Hiera
             sock.write(encode_s(request))
 
             sio = StringIO.new(read_s(sock))
-            if sio.read(1) != SSH2_AGENT_SIGN_RESPONSE
-              raise 'Expected SSH2_AGENT_SIGN_RESPONSE'
-            end
+            raise 'Expected SSH2_AGENT_SIGN_RESPONSE' if sio.read(1) != SSH2_AGENT_SIGN_RESPONSE
 
             sio = StringIO.new(read_s(sio))
             raise 'Expected ssh-rsa' if read_s(sio) != 'ssh-rsa'
@@ -53,9 +53,7 @@ class Hiera
             sock.write(encode_s(SSH2_AGENTC_REQUEST_IDENTITIES))
 
             sio = StringIO.new(read_s(sock))
-            if sio.read(1) != SSH2_AGENT_IDENTITIES_ANSWER
-              raise 'expected SSH2_AGENT_IDENTITIES_ANSWER'
-            end
+            raise 'expected SSH2_AGENT_IDENTITIES_ANSWER' if sio.read(1) != SSH2_AGENT_IDENTITIES_ANSWER
 
             (0...read_u32(sio)).each do
               key_blob = read_s(sio)
@@ -65,9 +63,7 @@ class Hiera
           end
 
           class Encrypted
-            attr_reader :challenge
-            attr_reader :salt
-            attr_reader :payload
+            attr_reader :challenge, :salt, :payload
 
             def initialize(challenge, salt, payload)
               @challenge = challenge
@@ -93,7 +89,7 @@ class Hiera
           end
 
           def self.get_key(keyid, challenge, salt)
-            signature_blob = Socket.unix(ENV['SSH_AUTH_SOCK']) do |sock|
+            signature_blob = Socket.unix(ENV.fetch('SSH_AUTH_SOCK', nil)) do |sock|
               key_blob = get_key_blob(sock, keyid)
               break sign(sock, key_blob, challenge)
             end
@@ -103,7 +99,7 @@ class Hiera
               salt,
               100_000,
               32,
-              OpenSSL::Digest::SHA256.new
+              OpenSSL::Digest.new('SHA256')
             )
             Base64.encode64(kdf)
           end
@@ -130,9 +126,7 @@ class Hiera
 
           def self.keyid
             keyid = option :keyid
-            if keyid.nil? || keyid.empty?
-              raise ArgumentError, 'No keyid configured!'
-            end
+            raise ArgumentError, 'No keyid configured!' if keyid.nil? || keyid.empty?
 
             keyid
           end
@@ -147,7 +141,7 @@ class Hiera
           end
 
           def self.create_keys
-            STDERR.puts 'This encryptor does not support creation of keys'
+            warn 'This encryptor does not support creation of keys'
           end
         end
       end
