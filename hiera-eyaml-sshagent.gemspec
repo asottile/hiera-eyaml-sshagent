@@ -14,7 +14,6 @@ Gem::Specification.new do |gem|
 
   gem.homepage      = 'http://github.com/asottile/hiera-eyaml-sshagent'
   gem.files         = `git ls-files`.split($INPUT_RECORD_SEPARATOR)
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ['lib']
 
   gem.required_ruby_version = '>=2.6'
